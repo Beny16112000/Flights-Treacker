@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <title>Home</title>
+</head>
+<header>
+  {% if current_user.is_authenticated %}
+    <h1>Hello {{current_user.first_name}}</h1>
+    <tr>
+      <td><a href="/logout">Logout</a></td>
+    </tr>
+  {% else %}
+    <h1>Welcome To Flight tracker !</h1>
+    <a href="login">Login</a>
+    <br>
+    <a href="/register">Register</a>
+  {% endif %}
+</header>
+<br>
+<br>
+<body>
+  <form action="flight/search">
+    <input type="text" name="q">
+    <button type="submit">Search</button>
+  </form>
+    <table>
+        <tr>
+          <th>id</th>
+          <th>Flight Number</th>
+          <th>Airline company</th>
+          <th>From Country</th>
+          <th>From City</th>
+          <th>To Country</th>
+          <th>To City</th>
+          <th>Status</th>
+          <th>Official time</th>
+          <th>Real time</th>
+        </tr>
+        {% for flight in flights %}
+        <tr>
+          <td>{{flight.id}}</td>
+          <td class="hovertext" data-hover="See flight details"><a href="/flight/{{flight.flight_num}}">{{flight.flight_num}}</a></td>
+          <td>{{flight.airline}}</td>
+          {% if flight.to == False %}
+            <td class="hovertext" data-hover="See country details"><a href="/flight/country/israel">Israel</a></td>
+            <td>Ben gurion Airport</td>
+            <td class="hovertext" data-hover="See country details"><a href="/flight/country/{{flight.country}}">{{flight.country}}</a></td>
+            <td>{{flight.city}}</td>
+          {% else %}
+            <td class="hovertext" data-hover="See country details"><a href="/flight/country/{{flight.country}}">{{flight.country}}</a></td>
+            <td>{{flight.city}}</td>
+            <td class="hovertext" data-hover="See country details"><a href="/flight/country/israel">Israel</a></td>
+            <td>Ben gurion Airport</td>
+          {% endif %}
+          <td>{{flight.status}}</td>
+          <td>{{flight.official_time}}</td>
+          <td>{{flight.real_time}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Page</title>
+</head>
+<body>
+    <a href="/">Home</a>
+    <h1>Flight Number - {{flight_detail.flight_num}}</h1>
+    <h3>Airline Company - {{flight_detail.airline}}</h3>
+    <h3>City - {{flight_detail.city}}</h3>
+    <h3>Country - {{flight_detail.country}}</h3>
+    <h3>Status - {{flight_detail.status}}</h3>
+    <h3>Real time - {{flight_detail.real_time}}</h3>
+    <br>
+    <p style="color: brown;">{{wiki.summary}}</p>
+    <br>
+    <h3>The Value of 1 USD to {{currency.code}} <br> &#36; 1 = {{currency.value}}</h3>
+    <br>
+    <h2>Covid 19</h2>
+    <h3>Total infected so far - {{coronavirus.total}}</h3>
+    <h3>New on this day - {{coronavirus.new}}</h3>
+    <br>
+    <br>
+    <h2>Weather in {{flight_detail.country}}</h2>
+    {% for k,v in weather.items() %}
+        <h3>{{k}}: {{v}}</h3>
+    {% endfor %}
+    <form action="/save/">
+        <input type="hidden" name="id" value="{{flight_detail.flight_num}}">
+        <button type="submit">Follow Flight</button>
+    </form>
+</body>
+</html>
